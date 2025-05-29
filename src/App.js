@@ -1,25 +1,8 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import TripList from "./pages/TripList";
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-         Moonwave Web, 나만의 여행앱이 시작됩니다!
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+  return <TripList />;
 }
 
 export default App;
