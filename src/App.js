@@ -1,23 +1,57 @@
 import React, { useState, useEffect } from "react";
 import { auth, provider } from "./firebase";
-import { signInWithPopup, signOut } from "firebase/auth";
+import {
+  signInWithPopup,
+  signOut,
+  onAuthStateChanged,
+  signInWithEmailAndPassword,
+  createUserWithEmailAndPassword,
+  signInAnonymously
+} from "firebase/auth";
 import TripList from "./components/TripList";
 
 function App() {
   const familyId = "moonwave-family";
   const [user, setUser] = useState(null);
   const [tripId, setTripId] = useState(null);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
   useEffect(() => {
-    const unsub = auth.onAuthStateChanged(setUser);
+    const unsub = onAuthStateChanged(auth, setUser);
     return () => unsub();
   }, []);
 
-  const handleLogin = async () => {
+  const handleGoogleLogin = async () => {
     try {
       await signInWithPopup(auth, provider);
     } catch (e) {
-      alert("로그인 실패: " + e.message);
+      alert("Google 로그인 실패: " + e.message);
+    }
+  };
+
+  const handleEmailLogin = async () => {
+    try {
+      await signInWithEmailAndPassword(auth, email, password);
+    } catch (e) {
+      alert("이메일 로그인 실패: " + e.message);
+    }
+  };
+
+  const handleRegister = async () => {
+    try {
+      await createUserWithEmailAndPassword(auth, email, password);
+      alert("회원가입 완료! 로그인 해주세요.");
+    } catch (e) {
+      alert("회원가입 실패: " + e.message);
+    }
+  };
+
+  const handleGuestLogin = async () => {
+    try {
+      await signInAnonymously(auth);
+    } catch (e) {
+      alert("게스트 로그인 실패: " + e.message);
     }
   };
 
@@ -25,7 +59,6 @@ function App() {
     await signOut(auth);
   };
 
-  // 메인 색상 변수
   const mainColor = "#3663f7";
 
   if (!user) {
@@ -36,21 +69,40 @@ function App() {
         display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center"
       }}>
         <div style={{
-          width: "100%", maxWidth: 350, background: "#fff", borderRadius: 20, boxShadow: "0 4px 32px #e3eaf933", padding: 32,
-          display: "flex", flexDirection: "column", alignItems: "center"
+          width: "100%", maxWidth: 400, background: "#fff", borderRadius: 20,
+          boxShadow: "0 4px 32px #e3eaf933", padding: 32,
+          display: "flex", flexDirection: "column", gap: 12
         }}>
-          <button
-            onClick={handleLogin}
-            style={{
-              width: "100%",
-              padding: "14px 0", fontSize: 18, borderRadius: 12,
-              background: mainColor, color: "#fff", border: "none", fontWeight: 700,
-              boxShadow: "0 2px 10px #bed3eb2c", marginBottom: 16, letterSpacing: "1px"
-            }}
-          >
+          <h2 style={{ fontWeight: 800, fontSize: 20, color: "#3240a8", textAlign: "center" }}>
+            Moonwave 로그인
+          </h2>
+
+          <button onClick={handleGoogleLogin} style={loginBtnStyle}>
             Google 계정으로 로그인
           </button>
-          <div style={{ color: "#8595b7", fontSize: 15 }}>로그인 후 이용해 주세요!</div>
+
+          <input
+            type="email"
+            placeholder="이메일"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            style={inputStyle}
+          />
+          <input
+            type="password"
+            placeholder="비밀번호"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            style={inputStyle}
+          />
+          <button onClick={handleEmailLogin} style={loginBtnStyle}>이메일 로그인</button>
+          <button onClick={handleRegister} style={{ ...loginBtnStyle, background: "#d1d5db", color: "#333" }}>
+            회원가입
+          </button>
+
+          <button onClick={handleGuestLogin} style={{ ...loginBtnStyle, background: "#e4e8ff", color: "#3240a8" }}>
+            게스트 체험하기
+          </button>
         </div>
       </div>
     );
@@ -61,7 +113,6 @@ function App() {
       minHeight: "100vh",
       background: "linear-gradient(135deg, #f4f7fd 0%, #e7eefb 100%)"
     }}>
-      {/* 상단 바(타이틀 삭제) */}
       <div style={{
         width: "100%", maxWidth: 640, margin: "0 auto",
         display: "flex", flexDirection: "column", alignItems: "center", padding: "30px 0 10px 0"
@@ -73,7 +124,7 @@ function App() {
             fontWeight: 600, color: "#365", background: "#f6f8fd", borderRadius: 7,
             padding: "6px 14px", fontSize: 16
           }}>
-            {user.displayName}
+            {user.isAnonymous ? "게스트" : user.displayName || user.email}
           </span>
           <button onClick={handleLogout} style={{
             padding: "7px 16px", borderRadius: 7,
@@ -84,7 +135,6 @@ function App() {
         </div>
       </div>
 
-      {/* 본문 카드(타이틀 삭제) */}
       <main style={{
         maxWidth: 540, margin: "30px auto 0 auto", background: "#fff",
         borderRadius: 20, boxShadow: "0 2px 24px #bed3eb1c", padding: 24, minHeight: 360
@@ -94,5 +144,26 @@ function App() {
     </div>
   );
 }
+
+const loginBtnStyle = {
+  width: "100%",
+  padding: "12px 0",
+  fontSize: 16,
+  borderRadius: 10,
+  background: "#3663f7",
+  color: "#fff",
+  border: "none",
+  fontWeight: 700,
+  cursor: "pointer",
+  letterSpacing: "0.5px"
+};
+
+const inputStyle = {
+  width: "100%",
+  padding: "10px",
+  border: "1px solid #ccc",
+  borderRadius: 8,
+  fontSize: 15
+};
 
 export default App;
