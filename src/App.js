@@ -28,7 +28,10 @@ function App() {
   if (!user) {
     return (
       <div style={{ textAlign: "center", marginTop: 80 }}>
-        <h2>Moonwave 여행일정 (Firebase 실시간)</h2>
+        <div style={{ marginBottom: 40 }}>
+          <h1 style={{ fontSize: "2.2rem", fontWeight: 700, margin: 0 }}>Moonwave</h1>
+          <h2 style={{ fontSize: "1.5rem", fontWeight: 500, margin: 0, color: "#334" }}>제주도 가족여행</h2>
+        </div>
         <p style={{ color: "#566", marginBottom: 40 }}>로그인 후 이용해 주세요!</p>
         <button
           onClick={handleLogin}
@@ -45,15 +48,16 @@ function App() {
 
   return (
     <div style={{ padding: 32 }}>
-      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-        <h1>Moonwave 가족 여행일정 (Firebase 실시간)</h1>
-        <div>
-          <span style={{ marginRight: 16, fontWeight: 600 }}>{user.displayName}</span>
-          <button onClick={handleLogout} style={{
-            padding: "7px 16px", borderRadius: 7, background: "#e8eafc", color: "#3240a8",
-            border: "none", fontWeight: 700, cursor: "pointer"
-          }}>로그아웃</button>
-        </div>
+      <div style={{ textAlign: "center", marginBottom: 32 }}>
+        <h1 style={{ fontSize: "2.2rem", fontWeight: 700, margin: 0 }}>Moonwave</h1>
+        <h2 style={{ fontSize: "1.5rem", fontWeight: 500, margin: 0, color: "#334" }}>제주도 가족여행</h2>
+      </div>
+      <div style={{ display: "flex", justifyContent: "flex-end", alignItems: "center", marginBottom: 16 }}>
+        <span style={{ marginRight: 16, fontWeight: 600 }}>{user.displayName}</span>
+        <button onClick={handleLogout} style={{
+          padding: "7px 16px", borderRadius: 7, background: "#e8eafc", color: "#3240a8",
+          border: "none", fontWeight: 700, cursor: "pointer"
+        }}>로그아웃</button>
       </div>
       <TripList familyId={familyId} onTripSelect={setTripId} />
     </div>
