@@ -27,7 +27,6 @@ function App() {
 
   // 메인 색상 변수
   const mainColor = "#3663f7";
-  const subColor = "#eef2fa";
 
   if (!user) {
     return (
@@ -44,9 +43,6 @@ function App() {
             fontSize: "2.3rem", fontWeight: 800, letterSpacing: "2px", marginBottom: 8,
             color: mainColor, lineHeight: 1.1
           }}>Moonwave</h1>
-          <h2 style={{
-            fontSize: "1.1rem", fontWeight: 600, color: "#4d6279", marginBottom: 28, letterSpacing: "1px"
-          }}>🌊제주도 가족여행</h2>
           <button
             onClick={handleLogin}
             style={{
@@ -78,9 +74,6 @@ function App() {
           fontSize: "2.3rem", fontWeight: 800, letterSpacing: "2px", margin: 0,
           color: mainColor, lineHeight: 1.1
         }}>Moonwave</h1>
-        <h2 style={{
-          fontSize: "1.1rem", fontWeight: 600, color: "#4d6279", margin: "8px 0 0 0", letterSpacing: "1px"
-        }}>🌊제주도 가족여행</h2>
         <div style={{
           position: "absolute", top: 32, right: 32, display: "flex", alignItems: "center", gap: 12
         }}>
@@ -104,6 +97,11 @@ function App() {
         maxWidth: 540, margin: "30px auto 0 auto", background: "#fff",
         borderRadius: 20, boxShadow: "0 2px 24px #bed3eb1c", padding: 24, minHeight: 360
       }}>
+        {/* 카드 제목만 수정 (예: TripList 상단에 직접 삽입) */}
+        <div style={{ display: "flex", alignItems: "center", marginBottom: 18, fontWeight: 700, fontSize: "1.5rem", color: "#234af3" }}>
+          <span style={{ fontSize: "2rem", marginRight: 10 }}>🌊</span>
+          제주도 가족여행
+        </div>
         <TripList familyId={familyId} onTripSelect={setTripId} />
       </main>
     </div>
