@@ -6,20 +6,47 @@ export const trips = [
     day: "1일차",
     weather: "흐림",
     schedule: [
-      { time: "00:00", label: "출발" },
-      { time: "07:30", label: "발권" },
-      { time: "아침", label: "편의점" },
-      { time: "08:30", label: "목포항 출발" },
-      { time: "12:30", label: "제주항 도착" },
-      { time: "13:00", label: "키친테왁(뿔소라 게우장밥)", url: "https://maps.app.goo.gl/2UMFcUbn9fmsa8cT9" },
-      { time: "포장", label: "천도두루치기", url: "https://maps.app.goo.gl/VEeH3fwkjrJmzYpe9" },
-      { label: "한림공원수국동산", url: "https://maps.app.goo.gl/wGaF3WdJNwXEFPNa9" },
-      { label: "협재해수욕장", url: "https://maps.app.goo.gl/Dd7V2YawxyrNr2JTA" },
-      { label: "쌍용굴", url: "https://maps.app.goo.gl/8JGvBmzoJvUcDgAg9" },
-      { label: "협재굴", url: "https://maps.app.goo.gl/PkqPMKPCTHSnfQ1n6" },
-      { time: "17:30", label: "한림별채 체크인", url: "https://maps.app.goo.gl/1FMiXaC9FBnAfGrs7" },
-      { time: "19:00", label: "제주도 해녀세자매 저녁", url: "https://maps.app.goo.gl/5LntUu2D9MnoyfWo7" },
-      { label: "안주: 천도두루치기" }
+      { time: "00:00", type: "교통", label: "출발" },
+      { time: "07:30", type: "교통", label: "발권" },
+      { time: "아침", type: "식사", label: "편의점" },
+      { time: "08:30", type: "교통", label: "목포항 출발" },
+      { time: "12:30", type: "교통", label: "제주항 도착" },
+      {
+        time: "13:00", type: "식사", label: "키친테왁(뿔소라 게우장밥)",
+        url: "https://maps.app.goo.gl/2UMFcUbn9fmsa8cT9",
+        memo: "현지 인기 해산물 식당"
+      },
+      {
+        type: "포장", label: "천도두루치기",
+        url: "https://maps.app.goo.gl/VEeH3fwkjrJmzYpe9",
+        memo: "저녁 안주용 포장"
+      },
+      {
+        type: "장소", label: "한림공원수국동산",
+        url: "https://maps.app.goo.gl/wGaF3WdJNwXEFPNa9",
+        addr: "제주특별자치도 제주시 한림읍"
+      },
+      {
+        type: "장소", label: "협재해수욕장",
+        url: "https://maps.app.goo.gl/Dd7V2YawxyrNr2JTA"
+      },
+      {
+        type: "장소", label: "쌍용굴",
+        url: "https://maps.app.goo.gl/8JGvBmzoJvUcDgAg9"
+      },
+      {
+        type: "장소", label: "협재굴",
+        url: "https://maps.app.goo.gl/PkqPMKPCTHSnfQ1n6"
+      },
+      {
+        time: "17:30", type: "숙소", label: "한림별채 체크인",
+        url: "https://maps.app.goo.gl/1FMiXaC9FBnAfGrs7"
+      },
+      {
+        time: "19:00", type: "식사", label: "제주도 해녀세자매",
+        url: "https://maps.app.goo.gl/5LntUu2D9MnoyfWo7"
+      },
+      { type: "포장", label: "천도두루치기" }
     ]
   },
   {
@@ -28,22 +55,55 @@ export const trips = [
     day: "2일차",
     weather: "흐림",
     schedule: [
-      { time: "08:00", label: "아침" },
-      { time: "08:00~09:00", label: "이동 (1시간)" },
-      { time: "09:00", label: "(제패) 낙타트레킹", url: "https://maps.app.goo.gl/dVNPe16Y391SvUvc7" },
-      { label: "(제패,카페) 포레스텔라 인 제주", url: "https://maps.app.goo.gl/HNxtwmKYLvNsgNVHA" },
-      { time: "11:00", label: "(제패) 탐라승마장", url: "https://maps.app.goo.gl/wxuPqCKATApYtMhcA" },
-      { time: "12:00", label: "오름나그네 점심", url: "https://maps.app.goo.gl/VPSDxvMCQMvBN9tH6" },
-      { time: "13:00", label: "제주동화마을", url: "https://maps.app.goo.gl/UwntHNq8yFvfP3k69" },
-      { time: "14:00", label: "(제패,카페)안도르", url: "https://maps.app.goo.gl/T2E1iw3uGugKxpzT6" },
-      { time: "15:00", label: "(제패) 선녀와나무꾼", url: "https://maps.app.goo.gl/fHv2DQdB1wPfHeCs7" },
-      { time: "16:00", label: "(제패) 제주라프", url: "https://maps.app.goo.gl/sBCYTLhvTdKqK3r26" },
-      { time: "17:00", label: "(제패,카페)라토커피제주", url: "https://maps.app.goo.gl/CaKEcashwazWVvHJ7" },
-      { time: "17:30", label: "(제패) 하리보해피월드", url: "https://maps.app.goo.gl/LHCJcPdiV8Xad3Kg7" },
-      { time: "19:00", label: "돝밭 애월흑돼지 저녁", url: "https://maps.app.goo.gl/gcfFbhNP9b1pnDhx6" }
+      { time: "08:00", type: "식사", label: "아침" },
+      { time: "08:00~09:00", type: "교통", label: "이동 (1시간)" },
+      {
+        time: "09:00", type: "장소", label: "(제패) 낙타트레킹",
+        url: "https://maps.app.goo.gl/dVNPe16Y391SvUvc7"
+      },
+      {
+        type: "카페", label: "(제패,카페) 포레스텔라 인 제주",
+        url: "https://maps.app.goo.gl/HNxtwmKYLvNsgNVHA"
+      },
+      {
+        time: "11:00", type: "장소", label: "(제패) 탐라승마장",
+        url: "https://maps.app.goo.gl/wxuPqCKATApYtMhcA"
+      },
+      {
+        time: "12:00", type: "식사", label: "오름나그네 점심",
+        url: "https://maps.app.goo.gl/VPSDxvMCQMvBN9tH6"
+      },
+      {
+        time: "13:00", type: "장소", label: "제주동화마을",
+        url: "https://maps.app.goo.gl/UwntHNq8yFvfP3k69"
+      },
+      {
+        time: "14:00", type: "카페", label: "(제패,카페)안도르",
+        url: "https://maps.app.goo.gl/T2E1iw3uGugKxpzT6"
+      },
+      {
+        time: "15:00", type: "장소", label: "(제패) 선녀와나무꾼",
+        url: "https://maps.app.goo.gl/fHv2DQdB1wPfHeCs7"
+      },
+      {
+        time: "16:00", type: "장소", label: "(제패) 제주라프",
+        url: "https://maps.app.goo.gl/sBCYTLhvTdKqK3r26"
+      },
+      {
+        time: "17:00", type: "카페", label: "(제패,카페)라토커피제주",
+        url: "https://maps.app.goo.gl/CaKEcashwazWVvHJ7"
+      },
+      {
+        time: "17:30", type: "장소", label: "(제패) 하리보해피월드",
+        url: "https://maps.app.goo.gl/LHCJcPdiV8Xad3Kg7"
+      },
+      {
+        time: "19:00", type: "식사", label: "돝밭 애월흑돼지 저녁",
+        url: "https://maps.app.goo.gl/gcfFbhNP9b1pnDhx6"
+      }
     ]
   },
-  {
+    {
     id: 3,
     date: "2024-06-02 (월)",
     day: "3일차",
@@ -81,44 +141,6 @@ export const trips = [
     ]
   },
    {
-    id: 5,
-    date: "2024-06-04 (수)",
-    day: "5일차",
-    weather: "맑음",
-    schedule: [
-      { time: "07:30", label: "조식" },
-      { time: "08:30", label: "숙소 체크아웃" },
-      { time: "09:00", label: "(제패) 제주제트", url: "https://maps.app.goo.gl/8kqvfNLKw1AtzZag7" },
-      { time: "10:00", label: "(제패,카페) 시즈널리티", url: "https://maps.app.goo.gl/jveMUbtBznJgsUSw7" },
-      { time: "11:00", label: "(제패) 퍼시픽 마리나 요트투어", url: "https://maps.app.goo.gl/g3jLxCdZdAjHkJf9A" },
-      { time: "13:00", label: "고집돌우럭 중문점 점심", url: "https://maps.app.goo.gl/GXU5Jcsk7PXnef1k8" },
-      { time: "14:00", label: "파더스가든", url: "https://maps.app.goo.gl/HH9qN9okpyUvzyTE9" },
-      { time: "15:00", label: "(제패) 카멜리아힐", url: "https://maps.app.goo.gl/gJimpwNNANVC15RZ8" },
-      { time: "16:00", label: "(제패) 무민랜드제주", url: "https://maps.app.goo.gl/Ys51VJzevdc7hiiv8" },
-      { time: "17:00", label: "(제패) 점보빌리지", url: "https://maps.app.goo.gl/HfAc4hH6KyfJxeKRA" },
-      { time: "18:00", label: "서광우리집식당 저녁", url: "https://maps.app.goo.gl/fbWrpdeTjHkRXG8M7" },
-      { time: "19:00", label: "제주신화월드 메리어트 리조트 체크인", url: "https://maps.app.goo.gl/xJcKxwwbkGV5627W6" }
-    ]
-  },
-  {
-    id: 6,
-    date: "2024-06-05 (목)",
-    day: "6일차",
-    weather: "대체로 맑음",
-    schedule: [
-      { time: "08:00", label: "조식" },
-      { time: "09:00", label: "(제패) 방림원", url: "https://maps.app.goo.gl/hc9yavcniiDgMjoY7" },
-      { time: "10:00", label: "(제패) 더마파크", url: "https://maps.app.goo.gl/1m1tjQFXj7sKPRKAA" },
-      { time: "11:00", label: "(제패) 비체올린", url: "https://maps.app.goo.gl/q4U3cmeomoWikL9G6" },
-      { time: "12:30", label: "제주돔베막국수 점심", url: "https://maps.app.goo.gl/TKPvqrA4BH4TptZHA" },
-      { time: "14:00", label: "(제패) 차귀도 태양배낚시 with 돌고래", url: "https://maps.app.goo.gl/1UFJBGKaPdwbit7b8" },
-      { time: "16:00", label: "(제패,카페) 미쁜제과", url: "https://maps.app.goo.gl/zQL1CccP8JguDkVa8" },
-      { time: "17:00", label: "(제패) 벨진밧", url: "https://maps.app.goo.gl/FCu5AW8NN9sab2PR7" },
-      { time: "18:00", label: "뚱보아저씨 저녁", url: "https://maps.app.goo.gl/eHDiLTGW2L28KJpZ8" },
-      { time: "19:00", label: "(제패) 산양큰엉곶", url: "https://maps.app.goo.gl/sYd7rkRujSPXYgxx7" }
-    ]
-  },
-  {
     id: 5,
     date: "2024-06-04 (수)",
     day: "5일차",
