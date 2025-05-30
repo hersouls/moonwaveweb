@@ -39,10 +39,6 @@ function App() {
           width: "100%", maxWidth: 350, background: "#fff", borderRadius: 20, boxShadow: "0 4px 32px #e3eaf933", padding: 32,
           display: "flex", flexDirection: "column", alignItems: "center"
         }}>
-          <h1 style={{
-            fontSize: "2.3rem", fontWeight: 800, letterSpacing: "2px", marginBottom: 8,
-            color: mainColor, lineHeight: 1.1
-          }}>Moonwave</h1>
           <button
             onClick={handleLogin}
             style={{
@@ -65,15 +61,11 @@ function App() {
       minHeight: "100vh",
       background: "linear-gradient(135deg, #f4f7fd 0%, #e7eefb 100%)"
     }}>
-      {/* 상단 바 */}
+      {/* 상단 바(타이틀 삭제) */}
       <div style={{
         width: "100%", maxWidth: 640, margin: "0 auto",
-        display: "flex", flexDirection: "column", alignItems: "center", padding: "40px 0 18px 0"
+        display: "flex", flexDirection: "column", alignItems: "center", padding: "30px 0 10px 0"
       }}>
-        <h1 style={{
-          fontSize: "2.3rem", fontWeight: 800, letterSpacing: "2px", margin: 0,
-          color: mainColor, lineHeight: 1.1
-        }}>Moonwave</h1>
         <div style={{
           position: "absolute", top: 32, right: 32, display: "flex", alignItems: "center", gap: 12
         }}>
@@ -92,16 +84,11 @@ function App() {
         </div>
       </div>
 
-      {/* 본문 카드 */}
+      {/* 본문 카드(타이틀 삭제) */}
       <main style={{
         maxWidth: 540, margin: "30px auto 0 auto", background: "#fff",
         borderRadius: 20, boxShadow: "0 2px 24px #bed3eb1c", padding: 24, minHeight: 360
       }}>
-        {/* 카드 제목만 수정 (예: TripList 상단에 직접 삽입) */}
-        <div style={{ display: "flex", alignItems: "center", marginBottom: 18, fontWeight: 700, fontSize: "1.5rem", color: "#234af3" }}>
-          <span style={{ fontSize: "2rem", marginRight: 10 }}>🌊</span>
-          제주도 가족여행
-        </div>
         <TripList familyId={familyId} onTripSelect={setTripId} />
       </main>
     </div>
