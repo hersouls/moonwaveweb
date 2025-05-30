@@ -1,4 +1,4 @@
-// 본문 시작
+// TripCard.jsx
 import React, { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { typeColors, getTypeSvg } from "./TypeBadge";
@@ -14,7 +14,7 @@ function useWeather(date, place) {
   return weather;
 }
 
-// 거리 계산 (Haversine)
+// 거리 계산
 function getDistanceKm(lat1, lon1, lat2, lon2) {
   const toRad = v => (v * Math.PI) / 180;
   const R = 6371;
@@ -22,22 +22,21 @@ function getDistanceKm(lat1, lon1, lat2, lon2) {
   const dLon = toRad(lon2 - lon1);
   const a =
     Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-    Math.cos(toRad(lat1)) *
-      Math.cos(toRad(lat2)) *
-      Math.sin(dLon / 2) *
-      Math.sin(dLon / 2);
+    Math.cos(toRad(lat1)) * Math.cos(toRad(lat2)) * Math.sin(dLon / 2) * Math.sin(dLon / 2);
   const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
   return Math.round(R * c * 1000) / 1000;
 }
+
 function getMoveTypeAndTime(distKm) {
   if (distKm < 1) {
-    const min = Math.round(distKm * 15) || 1; // 도보 1km 15분
+    const min = Math.round(distKm * 15) || 1;
     return { type: "도보", min, color: "#4ec46d" };
   } else {
-    const min = Math.round(distKm * 2.5) || 1; // 차량 1km 2.5분
+    const min = Math.round(distKm * 2.5) || 1;
     return { type: "차량", min, color: "#2d87e8" };
   }
 }
+
 function convertToGoogleEmbedUrl(url) {
   if (!url) return "";
   if (url.includes("google.com/maps/embed")) return url;
@@ -46,7 +45,9 @@ function convertToGoogleEmbedUrl(url) {
   }
   return "";
 }
+
 const getColor = (isToday) => isToday ? "#e0edff" : "#fff";
+
 export default function TripCard({
   trip,
   dragHandleProps,
@@ -58,7 +59,6 @@ export default function TripCard({
 }) {
   const weather = useWeather(trip.date, trip.place);
 
-  // 타임라인 데이터 시간순 정렬
   const sortedSchedule = [...(trip.schedule || [])].sort((a, b) => {
     if (!a.time || !/^\d{1,2}:\d{2}/.test(a.time)) return 1;
     if (!b.time || !/^\d{1,2}:\d{2}/.test(b.time)) return -1;
@@ -83,7 +83,7 @@ export default function TripCard({
         transition: "border 0.2s, background 0.2s"
       }}
     >
-      {/* 드래그핸들 */}
+      {/* 드래그 핸들 */}
       <div
         {...dragHandleProps}
         style={{
@@ -99,33 +99,28 @@ export default function TripCard({
       >
         <span role="img" aria-label="drag">☰</span>
       </div>
-      <span style={{
-        fontWeight: 700,
-        fontSize: 16,
-        marginRight: 8,
-        color: isToday ? "#1d63ca" : "#222"
-      }}>
+
+      <span style={{ fontWeight: 700, fontSize: 16, marginRight: 8, color: isToday ? "#1d63ca" : "#222" }}>
         {trip.day}일차
       </span>
       <span style={{ color: "#94a3b8", marginRight: 8 }}>{trip.date}</span>
       <span style={{ fontSize: 18, marginRight: 5 }}>{weather}</span>
+
       <div style={{
-        marginTop: 10,
-        fontSize: 15,
-        color: "#3b4153",
-        fontWeight: 500
+        marginTop: 10, fontSize: 15, color: "#3b4153", fontWeight: 500
       }}>
         <span role="img" aria-label="place" style={{ marginRight: 5 }}>📍</span>
         {trip.place || "대표 장소"}
       </div>
+
       <div style={{
         position: "absolute", right: 16, top: 18, fontSize: 22,
-        color: isOpen ? "#3240a8" : "#b6c2df",
-        transition: "color 0.2s"
+        color: isOpen ? "#3240a8" : "#b6c2df", transition: "color 0.2s"
       }}>
         {isOpen ? "▲" : "▼"}
       </div>
-      {/* 상세(펼침) – framer-motion 애니메이션 */}
+
+      {/* 상세 영역 */}
       <AnimatePresence>
         {isOpen && (
           <motion.div
@@ -136,19 +131,17 @@ export default function TripCard({
             style={{
               overflow: "hidden",
               marginTop: 18,
-              padding: "16px 10px 8px 10px",
+              padding: "16px 10px 36px 10px", // 👈 하단 여백 확보
               background: "#f6f8fe",
               borderRadius: 12,
               boxShadow: "0 2px 8px #b2cdfa22"
             }}
-            onClick={e => e.stopPropagation()}
+            onClick={(e) => e.stopPropagation()}
           >
             <div style={{ fontWeight: 600, marginBottom: 8 }}>상세 일정 타임라인</div>
             <ul style={{ paddingLeft: 0, listStyle: "none" }}>
               {sortedSchedule.map((item, idx) => {
                 const embedUrl = convertToGoogleEmbedUrl(item.mapUrl);
-
-                // 이동 안내 정보
                 let moveInfo = null;
                 if (
                   idx < sortedSchedule.length - 1 &&
@@ -160,14 +153,9 @@ export default function TripCard({
                   const { type, min, color } = getMoveTypeAndTime(dist);
                   moveInfo = (
                     <div style={{
-                      color,
-                      fontWeight: 700,
-                      margin: "4px 0 8px 0",
-                      fontSize: 14,
-                      background: "#f3f7fb",
-                      borderRadius: 7,
-                      display: "inline-block",
-                      padding: "2px 14px",
+                      color, fontWeight: 700, margin: "4px 0 8px 0", fontSize: 14,
+                      background: "#f3f7fb", borderRadius: 7,
+                      display: "inline-block", padding: "2px 14px",
                     }}>
                       {dist < 1 ? `${Math.round(dist * 1000)}m` : `${dist}km`} {type} {min}분
                     </div>
@@ -184,9 +172,7 @@ export default function TripCard({
                       marginBottom: 8
                     }}>
                       <div style={{
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "space-between"
+                        display: "flex", alignItems: "center", justifyContent: "space-between"
                       }}>
                         <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
                           <span style={{ fontWeight: 700, fontSize: 15 }}>{item.time}</span>
@@ -211,9 +197,7 @@ export default function TripCard({
                           </span>
                         )}
                       </div>
-                      {/* 일정 메모/내용 */}
                       <div style={{ color: "#465c8b", fontSize: 14, marginTop: 3 }}>{item.memo || item.content}</div>
-                      {/* 지도 embed */}
                       {embedUrl && (
                         <div style={{ margin: "12px 0 6px 0" }}>
                           <iframe
@@ -228,7 +212,6 @@ export default function TripCard({
                           />
                         </div>
                       )}
-                      {/* 지도 링크 */}
                       {item.mapUrl && (
                         <div>
                           <a
@@ -243,7 +226,6 @@ export default function TripCard({
                           >지도 보기</a>
                         </div>
                       )}
-                      {/* 이동 안내 */}
                       {moveInfo}
                     </li>
                   </React.Fragment>
@@ -270,7 +252,7 @@ export default function TripCard({
           </motion.div>
         )}
       </AnimatePresence>
-      {/* 오늘 강조 배지 */}
+
       {isToday && (
         <div style={{
           position: "absolute", left: 12, top: 8, fontSize: 13,
@@ -283,4 +265,3 @@ export default function TripCard({
     </div>
   );
 }
-// 본문 종료
